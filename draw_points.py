@@ -14,8 +14,6 @@ args = parser.parse_args()
 
 args, kml = util.parse_arguments(args)
 
-p = kml.newoint(name=args.name)
-
 for index, c in enumerate(args.coords):
     print u'Drawing point for coordinates {0}...'.format(args.coords)
     lat, lon = util.parse_latlon(c)
