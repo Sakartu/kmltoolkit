@@ -23,26 +23,7 @@ if not args.coords[0] == args.coords[-1]:
     args.coords.append(args.coords[0])
 print u'Drawing polygon for coordinates {0}...'.format(args.coords)
 for c in args.coords:
-    try:
-        lat, lon = c.split(',')
-    except ValueError:
-        print u'Could not split {0}, invalid coordinates!'
-    if 'n' in lat.lower() or 's' in lat.lower():
-        deg, min, sec = lat[:-1].split()
-        if 's' in lat.lower():
-            lat = -(float(deg) + (float(min) / 60) + (float(sec) / 3600))
-        else:
-            lat = float(deg) + (float(min) / 60) + (float(sec) / 3600)
-    if 'e' in lon.lower() or 'w' in lon.lower():
-        deg, min, sec = lon[:-1].split()
-        if 'w' in lon.lower():
-            lon = -(float(deg) + (float(min) / 60) + (float(sec) / 3600))
-        else:
-            lon = float(deg) + (float(min) / 60) + (float(sec) / 3600)
-    try:
-        lat, lon = float(lat), float(lon)
-    except ValueError:
-        print u'Could not convert {0} to floats!'.format((lat, lon))
+    lat, lon = util.parse_latlon(c)
     coords.append((lon, lat))
 
 p.outerboundaryis = coords
