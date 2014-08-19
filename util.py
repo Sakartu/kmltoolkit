@@ -38,3 +38,4 @@ def parse_latlon(c):
     except ValueError:
         print u'Could not convert {0} to floats!'.format((lat, lon))
         raise
+    return lat, lon
