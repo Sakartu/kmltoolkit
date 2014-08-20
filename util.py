@@ -22,17 +22,17 @@ def parse_latlon(c):
         raise
 
     if 'n' in lat.lower() or 's' in lat.lower():
-        deg, min, sec = lat[:-1].split()
+        d, m, s = lat[:-1].split()
         if 's' in lat.lower():
-            lat = -(float(deg) + (float(min) / 60) + (float(sec) / 3600))
+            lat = -(float(d) + (float(m) / 60) + (float(s) / 3600))
         else:
-            lat = float(deg) + (float(min) / 60) + (float(sec) / 3600)
+            lat = float(d) + (float(m) / 60) + (float(s) / 3600)
     if 'e' in lon.lower() or 'w' in lon.lower():
-        deg, min, sec = lon[:-1].split()
+        d, m, s = lon[:-1].split()
         if 'w' in lon.lower():
-            lon = -(float(deg) + (float(min) / 60) + (float(sec) / 3600))
+            lon = -(float(d) + (float(m) / 60) + (float(s) / 3600))
         else:
-            lon = float(deg) + (float(min) / 60) + (float(sec) / 3600)
+            lon = float(d) + (float(m) / 60) + (float(s) / 3600)
     try:
         lat, lon = float(lat), float(lon)
     except ValueError:
