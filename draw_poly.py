@@ -1,34 +1,42 @@
 #!/usr/bin/env python
-import argparse
-import simplekml
+"""
+Usage:
+draw_poly.py [-c COLOUR] [-n NAME] <outfile> <coords>...
+
+-c COLOUR --colour COLOUR   Specify the colour in a KML valid way (for instance, 3fff0000 for slightly transparant blue). [default: 3fff0000]
+-n NAME --name NAME         Specify the name for the KML node and the name of the polygon. By default this is the same as the name of the outfile.
+<outfile>                   Specifies the filename of the kml file to generate
+<coords>                    Specifies a list of comma separated coordinates (lat,long) for the polygon. This can be either decimal degrees or deg/min/sec, separated by space, appended with {N,S,W,E}
+
+Example: draw_poly.py out.kml "48 51 29.1348N,2 17 40.8984E" "48 51 30.1348N,2 17 41.8984E" "48 51 31.1348N,2 17 41.8984E"
+"""
+
+import docopt
 import util
+
 
 __author__ = 'peter'
 
-parser = argparse.ArgumentParser(epilog='Example usage: {0} "47 59 00N,38 45 00E" "47 59 59N,38 45 00E" "47 59 59N, 38 45 59E" "47 59 00N, 38 45 59E" out.kml'.format(__file__))
-parser.add_argument('--name', '-n', help='The name for the kml node and the polygon, default is the same name as the outfile')
-parser.add_argument('--colour', '-c', help='The colour of the polygon, given as a KML valid colour (for instance, 3fff0000 for blue)', default='3fff0000')
-parser.add_argument('coords', nargs='+', help='Polygon coordinates, separated by a comma for lat/long, separated by a space for next coord. Can be given as degrees/minutes/seconds by using "48 51 29.1348N,2 17 40.8984E"')
-parser.add_argument('outfile', help='The name of the output (kml) file')
-args = parser.parse_args()
+
+args = docopt.docopt(__doc__)
 
 args, kml = util.parse_arguments(args)
 
-p = kml.newpolygon(name=args.name)
+p = kml.newpolygon(name=args['--name'])
 
 coords = []
 
 # Check if last coordinate is also first coordinate, to make the polygon closing
-if not args.coords[0] == args.coords[-1]:
-    args.coords.append(args.coords[0])
-print u'Drawing polygon for coordinates {0}...'.format(args.coords)
-for c in args.coords:
+if not args['<coords>'][0] == args['<coords>'][-1]:
+    args['<coords>'].append(args['<coords>'][0])
+print u'Drawing polygon for coordinates {0}...'.format(args['<coords>'])
+for c in args['<coords>']:
     lat, lon = util.parse_latlon(c)
     coords.append((lon, lat))
 
 p.outerboundaryis = coords
 print u'Setting colour...'
-p.style.polystyle.color = args.colour
-print u'Saving to {0}...'.format(args.outfile)
-kml.save(args.outfile)
+p.style.polystyle.color = args['--colour']
+print u'Saving to {0}...'.format(args['<outfile>'])
+kml.save(args['<outfile>'])
 print u'Done!'

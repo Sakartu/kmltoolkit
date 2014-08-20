@@ -4,13 +4,13 @@ __author__ = 'peter'
 
 
 def parse_arguments(args):
-    if not args.outfile.endswith('.kml'):
-        args.outfile += '.kml'
+    if '--name' not in args or args['--name'] is None:
+        args['--name'] = args['<outfile>']
 
-    if not args.name:
-        args.name = args.outfile
+    if not args['<outfile>'].endswith('.kml'):
+        args['<outfile>'] += '.kml'
 
-    kml = simplekml.Kml(name=args.name)
+    kml = simplekml.Kml(name=args['--name'])
     return args, kml
 
 
