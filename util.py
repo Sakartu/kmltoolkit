@@ -39,3 +39,7 @@ def parse_latlon(c):
         print u'Could not convert {0} to floats!'.format((lat, lon))
         raise
     return lat, lon
+
+
+def parse_color(color):
+    return getattr(simplekml.Color, color, color)
