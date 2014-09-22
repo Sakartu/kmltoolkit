@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 """
 Usage:
-draw_point.py [-n NAME] <outfile> <coords>...
+draw_points.py [-n NAME] <outfile> <coords>...
 
 
 -n NAME --name NAME         Specify the name for the KML node and the name of the point(s). By default this is the same as the name of the outfile.
