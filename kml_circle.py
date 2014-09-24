@@ -1,6 +1,7 @@
 __author__ = 'peter'
 #!/usr/bin/env python
 
+# This code was originally from:
 # The MIT License
 #
 # Copyright (c) 2007 Nick Galbreath
@@ -23,7 +24,9 @@ __author__ = 'peter'
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 #
-
+#
+# Version 3 - 24-Sept-2014 Fixed some pep8 violations and removed main method
+#                          calls (by Sakartu)
 #
 # Version 2 - 12-Sept-2007 Simplified XML output
 #                          Added commandline interface
