@@ -16,7 +16,7 @@ Example: draw_circle.py out.kml "48 51 29.1348N,2 17 40.8984E"
 """
 
 import docopt
-import kml_circle
+import polycircles.polycircles
 import util
 
 
@@ -27,14 +27,14 @@ args = docopt.docopt(__doc__)
 
 args, kml = util.parse_arguments(args)
 
-p = kml.newpolygon(name=args['--name'])
 
 print u'Drawing circle for coordinates {0}...'.format(args['<coords>'])
 lat, lon = util.parse_latlon(args['<coords>'])
 
-coords = kml_circle.spoints(lon, lat, float(args['<radius>']), int(args['<sides>'] or 20))
+circle = polycircles.polycircles.Polycircle(lat, lon, float(args['<radius>']), int(args['<sides>']) or 20)
 
-p.outerboundaryis = coords
+p = kml.newpolygon(name=args['--name'], outerboundaryies=circle.to_kml())
+
 print u'Setting colour...'
 p.style.polystyle.color = util.parse_color(args['--colour'])
 if '--description' in args:
